@@ -6,6 +6,10 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "@jpass/core": ["./packages/core/src/index.ts"],
+      "@jpass/ui": ["./packages/ui/src/index.ts"]
+    }
   }
 }
