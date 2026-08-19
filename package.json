@@ -1,0 +1,7 @@
+{
+  "name": "jpass",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
