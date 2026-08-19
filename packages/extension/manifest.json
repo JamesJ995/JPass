@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "JPass",
+  "version": "0.0.0",
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
