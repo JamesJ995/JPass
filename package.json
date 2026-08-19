@@ -5,9 +5,14 @@
     "packages/*"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build": "npm run build --workspaces",
+    "build:ui": "npm run build --workspace=@jpass/ui",
+    "build:extension": "npm run build --workspace=@jpass/extension"
   },
   "devDependencies": {
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "^7.0.0",
+    "@vitejs/plugin-react": "^4.3.0"
   }
 }
