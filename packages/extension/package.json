@@ -11,7 +11,8 @@
   "devDependencies": {
     "vite": "^7.0.0",
     "@vitejs/plugin-react": "^4.3.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "@types/chrome": "^0.0.300"
   },
   "scripts": {
     "build": "vite build",
