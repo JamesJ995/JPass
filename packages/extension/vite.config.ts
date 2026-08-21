@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -18,30 +18,38 @@ function copyManifest() {
   }
 }
 
-export default defineConfig({
-  plugins: [react(), copyManifest()],
-  resolve: {
-    alias: {
-      '@jpass/ui': resolve(__dirname, '../ui/src/index.ts'),
-      '@jpass/core': resolve(__dirname, '../core/src/index.ts')
-    }
-  },
-  root: 'src',
-  build: {
-    outDir: '../dist',
-    emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        popup: resolve(__dirname, 'src/popup/index.html'),
-        background: resolve(__dirname, 'src/background.ts'),
-        content: resolve(__dirname, 'src/content.ts')
-      },
-      output: {
-        entryFileNames: (chunkInfo) => {
-          if (chunkInfo.name === 'background' || chunkInfo.name === 'content') {
-            return '[name].js'
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, resolve(__dirname, '../..'), 'VITE_')
+  const envDefines = Object.fromEntries(
+    Object.entries(env).map(([key, value]) => [`import.meta.env.${key}`, JSON.stringify(value)])
+  )
+
+  return {
+    plugins: [react(), copyManifest()],
+    resolve: {
+      alias: {
+        '@jpass/ui': resolve(__dirname, '../ui/src/index.ts'),
+        '@jpass/core': resolve(__dirname, '../core/src/index.ts')
+      }
+    },
+    root: 'src',
+    define: envDefines,
+    build: {
+      outDir: '../dist',
+      emptyOutDir: true,
+      rollupOptions: {
+        input: {
+          popup: resolve(__dirname, 'src/popup/index.html'),
+          background: resolve(__dirname, 'src/background.ts'),
+          content: resolve(__dirname, 'src/content.ts')
+        },
+        output: {
+          entryFileNames: (chunkInfo) => {
+            if (chunkInfo.name === 'background' || chunkInfo.name === 'content') {
+              return '[name].js'
+            }
+            return 'assets/[name]-[hash].js'
           }
-          return 'assets/[name]-[hash].js'
         }
       }
     }
