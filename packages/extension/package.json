@@ -6,7 +6,8 @@
   "dependencies": {
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "@jpass/ui": "*"
+    "@jpass/ui": "*",
+    "firebase": "^12.0.0"
   },
   "devDependencies": {
     "vite": "^7.0.0",
